@@ -1,20 +1,20 @@
-import json
-
 # https://0uyz2m6qdd.execute-api.us-east-1.amazonaws.com/default/credit-score-breakdown-scripts
+import json
 
 def lambda_handler(event, context):
     ## Section One
-    loans = event['loans']
+    event_body = json.loads(event['body'])
+    loans = event_body['loans']
     avg = 0
     score_one = 0
     late_loans = []
-
-    for loan in loans:
-        avg += loan.accuracy_value
-        if loan.accuracy_value == 0:
+    for loan in loans['loan_array']:
+        print(loan['accuracy_value'])
+        avg += loan['accuracy_value']
+        if loan['accuracy_value'] == 0:
             late_loans.append(loan)
 
-    avg = avg / len(loans)
+    avg = avg / len(loans['loan_array'])
 
     if avg < 70: 
         score_one = 1
@@ -24,20 +24,20 @@ def lambda_handler(event, context):
         score_one = 3
 
     ## Section Two
-    cards = event['cards']
+    cards = event_body['cards']
     message_two = ''
     score_two = 0
 
-    if len(cards) < 3:
+    if len(cards["card_array"]) < 3:
         message_two = 'It might be in your best interest to get more credit cards! Visit https://www.capitalone.com/credit-cards/'
-    elif len(cards) >= 3:
+    elif len(cards["card_array"]) >= 3:
         message_two = 'Nice! Be sure to keep two on you and store the rest in a safe place! \n'
-        if len(cards) > 5:
+        if len(cards["card_array"]) > 5:
             message_two += 'Watch out for deadlines! Remember to pay on time for ALL of your cards!'
 
-    if len(cards) < 3: 
+    if len(cards["card_array"]) < 3: 
         score_two = 1
-    elif len(cards) <= 4:
+    elif len(cards["card_array"]) <= 4:
         score_two = 3
     else: 
         score_two = 2
@@ -50,10 +50,10 @@ def lambda_handler(event, context):
     message_three = ''
     score_three = 0
 
-    for card in cards:
-        per_card_ratio[card.id] = (card.spending / card.limit)
-        total_spending += card.spending
-        total_limit += card.limit
+    for card in cards["card_array"]:
+        per_card_ratio[card['id']] = (card['spending'] / card['limit'])
+        total_spending += card['spending']
+        total_limit += card['limit']
 
     overall_ratio = total_spending / total_limit
 
@@ -72,15 +72,15 @@ def lambda_handler(event, context):
         score_three = 1
 
     ## Section Four
-    loan_type_counter = {}
+    loan_type_counter = set()
     loan_counter = 0
     loan_diversity_score = 0
     message_four = ''
     score_four = 0
     
-    for loan in loans:
-        if loan.accuracy_value == 1: 
-            loan_type_counter.add(loan.type)
+    for loan in loans['loan_array']:
+        if loan['accuracy_value'] == 1: 
+            loan_type_counter.add(loan['loan_type'])
             loan_counter += 1
     
     loan_diversity_score = loan_counter * len(loan_type_counter)
@@ -98,8 +98,8 @@ def lambda_handler(event, context):
         score_four = 3
 
     ## Section Five
-    newest_credit_account = event['newest_credit_account']
-    oldest_credit_account = event['oldest_credit_account']
+    newest_credit_account = event_body['newest_credit_account']
+    oldest_credit_account = event_body['oldest_credit_account']
     message_five = ''
     credit_age = (oldest_credit_account - newest_credit_account) / len(loans)
     score_five = 0
@@ -120,15 +120,15 @@ def lambda_handler(event, context):
 
     return {
         'statusCode': 200,
-        'body': {
+        'body': json.dumps({
             'sectionOne': {
                 'average_score': avg,
                 'late_loans': late_loans,
                 'score_one': score_one
             },
             'sectionTwo': {
-                'message_two': messageTwo,
-                'credit_card_deadlines': cards,
+                'message_two': message_two,
+                'credit_card_deadlines': cards["card_array"],
                 'score_two': score_two
             },
             'sectionThree': {
@@ -148,5 +148,5 @@ def lambda_handler(event, context):
                 'score_five': score_five
             },
             "overall_score": overall_score
-        }
+        })
     }
