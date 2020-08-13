@@ -8,6 +8,7 @@ def lambda_handler(event, context):
     avg = 0
     score_one = 0
     late_loans = []
+    message_one = ''
     for loan in loans['loan_array']:
         print(loan['accuracy_value'])
         avg += loan['accuracy_value']
@@ -16,12 +17,15 @@ def lambda_handler(event, context):
 
     avg = avg / len(loans['loan_array'])
 
-    if avg < 70: 
+    if avg < .70: 
         score_one = 1
-    elif avg < 85:
+        message_one = "You need to vastly improve your payment habits for your credit accounts!"
+    elif avg < .85:
         score_one = 2
+        message_one = "You're doing an average job right now, but try to pay for all your accounts!"
     else: 
         score_one = 3
+        message_one = "Amazing! Keep up the great work!"
 
     ## Section Two
     cards = event_body['cards']
@@ -122,6 +126,7 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps({
             'sectionOne': {
+                'message_one': message_one,
                 'average_score': avg,
                 'late_loans': late_loans,
                 'score_one': score_one
