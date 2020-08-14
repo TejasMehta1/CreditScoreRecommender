@@ -1,0 +1,139 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.navBar{
+  background-color: darkblue;
+  color: white;
+  display: flex;
+}
+
+.pages{
+  float: right;
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.secondRow{
+  width: 66.6%!important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.overviewTagLine {
+  width: 38%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card{
+  background-color: #fff;
+  width: fit-content;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: inherit;
+  border-radius: 10px;
+  border-width: 1px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  color: #4a4a4a;
+  display: block;
+  padding: 0rem;
+
+  transition: 0.5s ease;
+}
+
+.card:hover {
+  transform: scale(1.04);
+}
+
+.emoji{
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 5em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.cardElements{
+  display: flex;
+}
+
+.cardRow {
+  width: 100%;
+  display: flex;
+  margin-top: 1em;
+}
+
+.category{
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+.modalText {
+  border-color: transparent;
+  position: fixed;
+  width: 60%;
+  margin-left: 20%;
+  top: 20%;
+  margin-right: 20%;
+  background-color: white;
+  border-radius: 10px;
+  outline: none;
+}
+
+.pieChart {
+  height: 125px;;
+  width: 125px;
+  right: 30px;
+  top: 30px;
+  position: absolute;
+  float:right;
+}
+
+#simple-modal-title {
+margin-left: 20px;
+}
+
+#simple-modal-description {
+  margin-left: 30px;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
