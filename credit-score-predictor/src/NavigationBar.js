@@ -1,30 +1,73 @@
 import React from 'react';
-import { BrowserRouter, Link } from "react-router-dom"
-
+import { BrowserRouter, Link, useHistory, withRouter } from "react-router-dom"
 import WhyShouldICare from './WhyShouldICare'
 import Logo from "./logo"
 import './App.css';
+import cap1Img from "./images/cap1.svg"
+
+
 
 function NavigationBar() {
+  let history = useHistory();
+  function handleInsightsClick() {
+    history.push("/insights");
+  }
+  function handleWhyClick() {
+    history.push("/why");
+  }
   return (
+    // <>
+    //   <BrowserRouter>
+    //     <div className="navBar">
+    //       <Link to="/insights">
+    //         <div className="navBar-logo-wrapper">
+    //           <Logo />
+    //         </div>
+    //       </Link>
+    //       <div className="poweredByCap1">
+    //       <p>
+    //         powered by
+    //       </p>
+    //       <a href="https://capitalone.com"><img className="cap1Image" src="cap1Img" alt="capital one"></img></a>
+    //       </div>
+    //     <div className="pages">
+    //     </div>
+    //     <Link
+    //           to="/why"
+    //     >
+    //           <div className="navBar-logo-wrapper why-care-wrapper">
+    //             <div className="cred-logo">
+    //               Why should I care?
+    //             </div>
+    //           </div>
+    //     </Link>
+        
+    // </div>
+    // </BrowserRouter>
+    // </>
     <>
-      <BrowserRouter>
-        <div className="navBar">
-          <Link to="/insights">
-            <div className="navBar-logo-wrapper">
-              <Logo />
-            </div>
-          </Link>
-      
-        <div className="pages">
-        </div>
-        <div className="navBar-logo-wrapper why-care-wrapper">
-      <WhyShouldICare />
-        </div>
+    <div className="navBar">
+        <a className="navBar-logo-wrapper" onClick={handleInsightsClick}>
+          <Logo />
+        </a>
+      <div className="poweredByCap1">
+      <p>
+        powered by
+      </p>
+      <a href="https://capitalone.com"><img className="cap1Image" src={cap1Img} alt="capital one"></img></a>
+      </div>
+    <div className="pages">
     </div>
-    </BrowserRouter>
-    </>
+
+          <a className="navBar-logo-wrapper why-care-wrapper" onClick={handleWhyClick}>
+            <div className="cred-logo">
+              Why should I care?
+            </div>
+          </a>
+    
+</div>
+</>
   );
 }
 
-export default NavigationBar;
+export default withRouter(NavigationBar);

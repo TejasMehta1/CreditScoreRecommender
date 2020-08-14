@@ -79,6 +79,7 @@ function Insights() {
 
     const [creditScore, setCreditScore] = useState(0);
     const [mainEmoji, setMainEmoji] = useState('');
+    const [uselessBoolean, setUselessBoolean] = useState('');
     const [section1Emoji, setSection1Emoji] = useState('');
     const [section2Emoji, setSection2Emoji] = useState('');
     const [section3Emoji, setSection3Emoji] = useState('');
@@ -113,7 +114,8 @@ function Insights() {
 
     React.useEffect(() => {
         console.log('componentDidMount');
-        axios.post(process.env.REACT_APP_LAMBDA_ENDPOINT, data)
+        axios.post(process.env.REACT_APP_LAMBDA_ENDPOINT, 
+            data)
         .then(res => {
           insights = res.data;
           console.log(insights);
@@ -254,9 +256,14 @@ function Insights() {
         return emojiChar;
     }
     
+    const uselessOpen = () => {
+        setUselessBoolean(true);
+    }
+
     const handleOpen1 = () => {
         setDisplayModal1(true);
       };
+    
     
       const handleClose1 = () => {
         setDisplayModal1(false);
@@ -299,16 +306,17 @@ function Insights() {
         <div className="text-center results">
             <div>
                 <Card.Title className="scoreResults">Credit Score:</Card.Title>
-                <CircularProgressbar value={creditScore/850*100} text={`${creditScore} ${mainEmoji}`} />
+                <CircularProgressbar value={(creditScore-300)/550*100} text={`${creditScore} ${mainEmoji}`} />
             </div>
         </div>
-        <div style={{width: "80%", marginRight: "auto", marginLeft: "auto", marginBottom: "20px"}}>
-        <div className="cardRow">
+        <div style={{width: "80%", marginRight: "auto", marginLeft: "auto", marginTop: "-300px"}}>
+        <div className="firstRow cardRow">
                 <CategoryCard hovercard={true} activateModal={handleOpen1} text="Payment History" emoji={section1Emoji} colorId="card1"/>
-                <CategoryCard hovercard={true} activateModal={handleOpen2} text="Number of Credit Cards" emoji={section2Emoji} colorId="card2"/>
+                <CategoryCard displayCard={"invisible"} activateModal={uselessOpen} colorId="invisibleCard"/>
                 <CategoryCard hovercard={true} activateModal={handleOpen3} text="Credit Utilization" emoji={section3Emoji} colorId="card3"/>
         </div>
         <div className="secondRow cardRow">
+        <CategoryCard hovercard={true} activateModal={handleOpen2} text="Number of Credit Cards" emoji={section2Emoji} colorId="card2"/>
             <CategoryCard hovercard={true} activateModal={handleOpen4} text="Credit History Length" emoji={section4Emoji} colorId="card4"/>
             <CategoryCard hovercard={true} activateModal={handleOpen5} text="Credit Mix" emoji={section5Emoji} colorId="card5"/>
         </div>
@@ -322,7 +330,7 @@ function Insights() {
             className="modal">
                 <Grow timeout={300} in={displayModal1}>
             <div className="modalText">
-            <h2 id="simple-modal-title">Payment History ({section1Score} out of 5)</h2>
+            <h2 id="simple-modal-title">Payment History (Your Score: {section1Score}/3)</h2>
                 {/* Pie Chart of How much its worth */}
                 <img className="pieChartImg" src={paymentHistoryImg}></img>
                 <p id="simple-modal-description">
@@ -349,7 +357,7 @@ function Insights() {
             className="modal">
                 <Grow timeout={300} in={displayModal2}>
             <div className="modalText">
-                <h2 id="simple-modal-title">Number of Credit Cards ({section2Score} out of 5)</h2>
+                <h2 id="simple-modal-title">Number of Credit Cards (Your Score: {section2Score}/3)</h2>
                 {/* Pie Chart of How much its worht */}
                 <img className="pieChartImg" src={numCardsImg}></img>
                 <p id="simple-modal-description">
@@ -375,7 +383,7 @@ function Insights() {
             className="modal">
             <Grow timeout={300} in={displayModal3}>
             <div className="modalText">
-                <h2 id="simple-modal-title">Credit Utilization ({section3Score} out of 5)</h2>
+                <h2 id="simple-modal-title">Credit Utilization (Your Score: {section3Score}/3)</h2>
                 {/* Pie Chart of How much its worht */}
                 <img className="pieChartImg" src={creditUtilizationImg}></img>
                 <p id="simple-modal-description">
@@ -404,7 +412,7 @@ function Insights() {
             className="modal">
                 <Grow timeout={300} in={displayModal4}>
             <div className="modalText">
-                <h2 id="simple-modal-title">Credit History Length ({section4Score} out of 5)</h2>
+                <h2 id="simple-modal-title">Credit History Length (Your Score: {section4Score}/3)</h2>
                 {/* Pie Chart of How much its worth */}
                 <img className="pieChartImg" src={creditHistoryImg}></img>
                 <p id="simple-modal-description">
@@ -423,7 +431,7 @@ function Insights() {
             className="modal">
                 <Grow timeout={300} in={displayModal5}>
             <div className="modalText">
-                <h2 id="simple-modal-title">Credit Mix ({section5Score} out of 5)</h2>
+                <h2 id="simple-modal-title">Credit Mix (Your Score: {section5Score}/3)</h2>
                 {/* Pie Chart of how much its worth */}
                 <img className="pieChartImg" src={creditMixImg}></img>
                 <p id="simple-modal-description">

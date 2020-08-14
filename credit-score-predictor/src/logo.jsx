@@ -6,10 +6,10 @@ const logo = () => {
       <>
         <div className="logo">
           <div className="street-logo">
-            street
+            Street
           </div>
           <div className="cred-logo">
-            CRED
+            Cred
           </div>
         </div>
       </>

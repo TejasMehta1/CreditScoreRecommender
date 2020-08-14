@@ -2,25 +2,31 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
+  Route
 } from "react-router-dom";
 import './App.css';
-import Login from "./Login"
+import Login from "./login"
 import Insights from './Insights.js'
 import NavigationBar from './NavigationBar.js'
+import WhyShouldICare from './WhyShouldICare.jsx'
+import UserForm from "./UserForm"
 
 function App() {
   return (
+    <Router>
     <div className="App">
       <NavigationBar/>
-      <Router>
-      <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/insights" component={Insights} />
-            <Route path="/" component={Insights} />
+          <Switch>
+            <Switch>
+            <Route path="/login" render={() => <Login />} />
+            <Route path="/form" render={( () => <UserForm />)} />
+            <Route path="/insights" render={ () => <Insights />} />
+            <Route path="/why" render={() => <WhyShouldICare/>} />
+            <Route path="/" render={() => <Login/>} />
+            </Switch>
           </Switch>
-          </Router>
     </div>
+    </Router>
   );
 }
 
