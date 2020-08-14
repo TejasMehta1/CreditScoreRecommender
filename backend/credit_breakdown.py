@@ -9,8 +9,8 @@ def lambda_handler(event, context):
     score_one = 0
     late_loans = []
     message_one = ''
+
     for loan in loans['loan_array']:
-        print(loan['accuracy_value'])
         avg += loan['accuracy_value']
         if loan['accuracy_value'] == 0:
             late_loans.append(loan)
@@ -111,7 +111,7 @@ def lambda_handler(event, context):
     if credit_age < 5:
         message_five = "Keep on utilizing these credit accounts and you will be on your way to a fantastic credit score!"
     else:
-        message_five = "Awesome job! Continue you paying off your credit accounts on-time!"
+        message_five = "Awesome job! Continue paying off your credit accounts on-time!"
 
     if credit_age < 3: 
         score_five = 1
@@ -120,30 +120,31 @@ def lambda_handler(event, context):
     else: 
         score_five = 3
 
-    overall_score = round((score_one * .35) + (score_two * .1) + (score_three * .3) + (score_four * .1) + (score_five * .15))
-
+    overall_score = round(((score_one * .35) + (score_two * .1) + (score_three * .3) + (score_four * .1) + (score_five * .15)) * (5.0 / 3.0))
+    credit_score = ((score_one / 3) * 297.5) + ((score_two / 3) * 85) + ((score_three / 3) * 255) + ((score_four / 3) * 85) + ((score_five / 3) * 127.5)
+    
     return {
         'statusCode': 200,
         'body': json.dumps({
-            'sectionOne': {
+            'section_one': {
                 'message_one': message_one,
                 'average_score': avg,
                 'late_loans': late_loans,
                 'score_one': score_one
             },
-            'sectionTwo': {
+            'section_two': {
                 'message_two': message_two,
                 'credit_card_deadlines': cards["card_array"],
                 'score_two': score_two
             },
-            'sectionThree': {
+            'section_three': {
                 'message_three': message_three,
                 'per_card_ratio': per_card_ratio,
                 'overall_ratio': overall_ratio,
                 'score_three': score_three
 
             },
-            'sectionFour': {
+            'section_four': {
                 "loan_diversity_score": loan_diversity_score,
                 'message_four': message_four,
                 'score_four': score_four
@@ -152,6 +153,7 @@ def lambda_handler(event, context):
                 'message_five': message_five,
                 'score_five': score_five
             },
-            "overall_score": overall_score
+            "overall_score": overall_score,
+            "credit_score": credit_score
         })
     }
