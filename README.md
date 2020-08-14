@@ -1,4 +1,4 @@
-# StreetCred
-Capital One Hackathon
+# Capital One Summit August Hackathon
 
-Check it out at: https://c1streetcred.web.app !
+## StreetCred
+Check it out at: https://c1streetcred.web.app!
