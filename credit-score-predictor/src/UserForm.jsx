@@ -104,6 +104,49 @@ class userForm extends Component {
                         )})
                     }
 
+                    
+                    
+<button onClick={this.addCard}>Add a credit card</button>
+                    {
+                        credit_cards.map((val, idx) => {
+                            let loantypeid = `loan_type-${idx}`, accuracyvalueid = `accuracy_value-${idx}`, cardid = `card_id-${idx}`
+            return (
+              <div key={idx}>
+                  <h4>{`Loan #${idx + 1}`}</h4>
+
+                  <div className="a-question">
+                    <label htmlFor={loantypeid}>Type of loan:</label>
+                    <select
+                        name={loantypeid}
+                        data-id={idx}
+                        id={loantypeid}
+                    //   value={credit_cards[idx].four_digits} 
+                        className="loan_type"
+                    >
+                        <option value="credit">Credit</option>
+                        <option value="student">Student</option>
+                        <option value="auto">Auto</option>
+                        <option value="home">Home</option>
+                        <option value="credit">Credit</option>
+                    </select>
+                    </div>
+
+                  <div className="a-question">
+                <label htmlFor={limitid}>Spending Limit</label>
+                <input
+                  type="text"
+                  name={limitid}
+                  data-id={idx}
+                  id={limitid}
+                //   value={credit_cards[idx].limit} 
+                  className="limit"
+                /></div>
+
+              </div>
+                        )})
+                    }
+
+
                     <input type="submit" value="submit" />
             </form>
         </>
