@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect, useHistory, withRouter } from "react-router-dom";
 import Insights from "./Insights";
 import "./App.css";
 // i hate react router
@@ -20,19 +20,40 @@ class TestInput extends Component {
     // this.setState({ req_data: e.target.value });
     console.log("SUBMITTED " + this.state.req_data);
     this.setState({ submitted: true });
+
+    // history.push({
+    //   pathname: "/insights",
+    //   state: { req_data: this.state.req_data },
+    // });
+
+    // this.context.router.push({
+    //   pathname: "/insights",
+    //   state: { req_data: this.state.req_data },
+    // });
+
+    // return (
+    //   <Redirect
+    //     to={{
+    //       pathname: "/insights",
+    //       //   search: "?utm=your+face",
+    //       state: { req_data: JSON.stringify(this.state.req_data) },
+    //     }}
+    //   />
+    // );
   }
 
   render() {
     if (this.state.submitted) {
-      console.log("REDIRECTING: " + this.state.req_data);
+      //   console.log("REDIRECTING: " + this.state.req_data);
 
       //   return <Insights req_data={this.state.req_data} />;
+
       return (
         <Redirect
           to={{
             pathname: "/insights",
             //   search: "?utm=your+face",
-            state: { req_data: this.state.req_data },
+            state: { req_data: JSON.stringify(this.state.req_data) },
           }}
         />
       );
