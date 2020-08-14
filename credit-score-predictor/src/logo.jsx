@@ -3,6 +3,7 @@ import "./App.css"
 
 const logo = () => {
     return (
+      <>
         <div className="logo">
           <div className="street-logo">
             street
@@ -11,7 +12,8 @@ const logo = () => {
             CRED
           </div>
         </div>
-        );
+      </>
+    );
 }
 
 export default logo;

@@ -5,9 +5,18 @@ import React, { useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Slide from '@material-ui/core/Slide';
 import Grow from '@material-ui/core/Grow' 
+import ProgressBar from 'react-animated-progress-bar';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card'
-// import paymentHistoryImg from './images/payment-history.png';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+
+import paymentHistoryImg from './images/payment-history-01.png';
+import creditMixImg from './images/credit-mix-02.png';
+import creditHistoryImg from './images/credit-history-03.png';
+import creditUtilizationImg from './images/credit-utilization-04.png';
+import numCardsImg from './images/num-cards-05.png';
 
 
 function Insights() {
@@ -80,6 +89,11 @@ function Insights() {
     const [section3Score, setSection3Score] = useState(0);
     const [section4Score, setSection4Score] = useState(0);
     const [section5Score, setSection5Score] = useState(0);
+    const [section1Rank, setSection1Rank] = useState('');
+    const [section2Rank, setSection2Rank] = useState('');
+    const [section3Rank, setSection3Rank] = useState('');
+    const [section4Rank, setSection4Rank] = useState('');
+    const [section5Rank, setSection5Rank] = useState('');
     const [modal1message1, setModal1Message1] = useState('');
     const [lateLoans, setLateLoans] = useState([]);
     const [modal2message2, setModal2Message2] = useState('');
@@ -114,6 +128,11 @@ function Insights() {
           setSection3Score(insights.section_three.score_three);
           setSection4Score(insights.section_four.score_four);
           setSection5Score(insights.section_five.score_five);
+          setSection1RankFromScore();
+          setSection2RankFromScore();
+          setSection3RankFromScore();
+          setSection4RankFromScore();
+          setSection5RankFromScore();
           setCreditScore(parseInt(insights.credit_score));
           setModal1Message1(insights.section_one.message_one);
           setLateLoans(insights.section_one.late_loans);
@@ -153,6 +172,48 @@ function Insights() {
         let emojiScore = insights.section_five.score_five;
         let emojiChar = setSectionEmojiBasedOnScore(emojiScore);
         setSection5Emoji(emojiChar);
+    }
+
+    const setSection1RankFromScore = () => {
+        let score = insights.section_one.score_one;
+        let ranking = setSectionRankBasedOnScore(score);
+        setSection1Rank(ranking);
+    }
+    const setSection2RankFromScore = () => {
+        let score = insights.section_two.score_two;
+        let ranking = setSectionRankBasedOnScore(score);
+        setSection2Rank(ranking);
+    }
+    const setSection3RankFromScore = () => {
+        let score = insights.section_three.score_three;
+        let ranking = setSectionRankBasedOnScore(score);
+        setSection3Rank(ranking);
+    }
+    const setSection4RankFromScore = () => {
+        let score = insights.section_four.score_four;
+        let ranking = setSectionRankBasedOnScore(score);
+        setSection4Rank(ranking);
+    }
+    const setSection5RankFromScore = () => {
+        let score = insights.section_five.score_five;
+        let ranking = setSectionRankBasedOnScore(score);
+        setSection5Rank(ranking);
+    }
+
+    const setSectionRankBasedOnScore = (score) => {
+        let ranking = '';
+        switch(score) {
+            case 1:
+                ranking = 'You rank as the bottom 33% of all users 🙄';
+                break;
+            case 2:
+                ranking = 'You rank as the top 50% of all users 😏';
+                break;
+            case 3:
+                ranking = 'You rank as the top 33% of all users 🤑';
+                break;
+        }
+        return ranking;
     }
 
     const setGeneralEmojiBasedOnScore = () => {
@@ -235,23 +296,21 @@ function Insights() {
       
   return (
     <div>
-        <Card className="text-center results">
-            <Card.Body>
-                <Card.Title className="scoreResults">Credit Score: {creditScore}</Card.Title>
-                <Card.Text className="emojiResults">
-                    {mainEmoji}
-                </Card.Text>
-            </Card.Body>
-        </Card>
-        <div style={{width: "80%", marginRight: "auto", marginLeft: "auto"}}>
+        <div className="text-center results">
+            <div>
+                <Card.Title className="scoreResults">Credit Score:</Card.Title>
+                <CircularProgressbar value={creditScore/850*100} text={`${creditScore} ${mainEmoji}`} />
+            </div>
+        </div>
+        <div style={{width: "80%", marginRight: "auto", marginLeft: "auto", marginBottom: "20px"}}>
         <div className="cardRow">
-                <CategoryCard borderColor={"rgba(71,152,211,.25)"} hovercard={true} activateModal={handleOpen1} text="Payment History" emoji={section1Emoji} id="card1"/>
-                <CategoryCard hovercard={true} activateModal={handleOpen2} text="Number of Credit Cards" emoji={section2Emoji} id="card2"/>
-                <CategoryCard hovercard={true} activateModal={handleOpen3} text="Credit Utilization" emoji={section3Emoji} id="card3"/>
+                <CategoryCard hovercard={true} activateModal={handleOpen1} text="Payment History" emoji={section1Emoji} colorId="card1"/>
+                <CategoryCard hovercard={true} activateModal={handleOpen2} text="Number of Credit Cards" emoji={section2Emoji} colorId="card2"/>
+                <CategoryCard hovercard={true} activateModal={handleOpen3} text="Credit Utilization" emoji={section3Emoji} colorId="card3"/>
         </div>
         <div className="secondRow cardRow">
-            <CategoryCard hovercard={true} activateModal={handleOpen4} text="Credit History Length" emoji={section4Emoji} id="card4"/>
-            <CategoryCard hovercard={true} activateModal={handleOpen5} text="Credit Mix" emoji={section5Emoji} id="card5"/>
+            <CategoryCard hovercard={true} activateModal={handleOpen4} text="Credit History Length" emoji={section4Emoji} colorId="card4"/>
+            <CategoryCard hovercard={true} activateModal={handleOpen5} text="Credit Mix" emoji={section5Emoji} colorId="card5"/>
         </div>
        </div>
 
@@ -265,7 +324,7 @@ function Insights() {
             <div className="modalText">
             <h2 id="simple-modal-title">Payment History ({section1Score} out of 5)</h2>
                 {/* Pie Chart of How much its worth */}
-                {/* <img className="paymentHistory" src={paymentHistoryImg}></img> */}
+                <img className="pieChartImg" src={paymentHistoryImg}></img>
                 <p id="simple-modal-description">
                     {modal1message1}
                 </p>
@@ -276,6 +335,9 @@ function Insights() {
                         </b>
                     </p>
                 )}
+                <p id="modal-ranking">
+                    {section1Rank}
+                </p>
              </div>
              </Grow>
         </Modal>
@@ -289,6 +351,7 @@ function Insights() {
             <div className="modalText">
                 <h2 id="simple-modal-title">Number of Credit Cards ({section2Score} out of 5)</h2>
                 {/* Pie Chart of How much its worht */}
+                <img className="pieChartImg" src={numCardsImg}></img>
                 <p id="simple-modal-description">
                 {modal2message2} {showCCUrl ? <a href={creditCardUrl}>{creditCardUrl}</a> : "."} 
                 </p>
@@ -299,6 +362,9 @@ function Insights() {
                         </b>
                     </p>
                 )}
+                <p id="modal-ranking">
+                    {section2Rank}
+                </p>
              </div>
              </Grow>
         </Modal>
@@ -311,6 +377,7 @@ function Insights() {
             <div className="modalText">
                 <h2 id="simple-modal-title">Credit Utilization ({section3Score} out of 5)</h2>
                 {/* Pie Chart of How much its worht */}
+                <img className="pieChartImg" src={creditUtilizationImg}></img>
                 <p id="simple-modal-description">
                     {modal3message3}
                 </p>
@@ -322,6 +389,9 @@ function Insights() {
                         </b>
                     </p>
                 ))}
+                <p id="modal-ranking">
+                    {section3Rank}
+                </p>
                 </div>
                 </Grow>
         </Modal>
@@ -336,8 +406,12 @@ function Insights() {
             <div className="modalText">
                 <h2 id="simple-modal-title">Credit History Length ({section4Score} out of 5)</h2>
                 {/* Pie Chart of How much its worth */}
+                <img className="pieChartImg" src={creditHistoryImg}></img>
                 <p id="simple-modal-description">
                     {modal4message4}
+                </p>
+                <p id="modal-ranking">
+                    {section4Rank}
                 </p>
              </div>
              </Grow>
@@ -351,8 +425,12 @@ function Insights() {
             <div className="modalText">
                 <h2 id="simple-modal-title">Credit Mix ({section5Score} out of 5)</h2>
                 {/* Pie Chart of how much its worth */}
+                <img className="pieChartImg" src={creditMixImg}></img>
                 <p id="simple-modal-description">
                     {modal5message5}
+                </p>
+                <p id="modal-ranking">
+                    {section5Rank}
                 </p>
             </div>
             </Grow>

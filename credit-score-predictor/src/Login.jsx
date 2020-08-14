@@ -3,7 +3,7 @@ import './App.css';
 
 function NavigationBar() {
   return (
-    <div className="logio-wrapper">
+    <div className="login-wrapper">
         lol
     </div>
   );
