@@ -1,5 +1,5 @@
 # Capital One Summit August Hackathon 2020
-*** 3rd Place Winner ***
+*** 3rd Place Finalist ***
 ## StreetCred
 A ReactJS, AWS Lambda, and API Gateway web application predicting your credit score and providing insights on how to improve your score ASAP.
 This is aimed at the young adult audience and an attempt at changing banking for good for that audience especially.
