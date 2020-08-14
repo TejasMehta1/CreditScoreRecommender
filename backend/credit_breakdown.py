@@ -33,7 +33,8 @@ def lambda_handler(event, context):
     score_two = 0
 
     if len(cards["card_array"]) < 3:
-        message_two = 'It might be in your best interest to get more credit cards! Visit https://www.capitalone.com/credit-cards/'
+        message_two = 'It might be in your best interest to get more credit cards! Visit: '
+        showCreditCards = True
     elif len(cards["card_array"]) >= 3:
         message_two = 'Nice! Be sure to keep two on you and store the rest in a safe place! \n'
         if len(cards["card_array"]) > 5:
@@ -121,7 +122,7 @@ def lambda_handler(event, context):
         score_five = 3
 
     overall_score = round(((score_one * .35) + (score_two * .1) + (score_three * .3) + (score_four * .1) + (score_five * .15)) * (5.0 / 3.0))
-    credit_score = ((score_one / 3) * 297.5) + ((score_two / 3) * 85) + ((score_three / 3) * 255) + ((score_four / 3) * 85) + ((score_five / 3) * 127.5)
+    credit_score = (((score_one / 3) * 297.5) + ((score_two / 3) * 85) + ((score_three / 3) * 255) + ((score_four / 3) * 85) + ((score_five / 3) * 127.5)) * (300 / (850 / 3))
     
     return {
         'statusCode': 200,
@@ -134,6 +135,7 @@ def lambda_handler(event, context):
             },
             'section_two': {
                 'message_two': message_two,
+                'show_credit_url': showCreditCards,
                 'credit_card_deadlines': cards["card_array"],
                 'score_two': score_two
             },

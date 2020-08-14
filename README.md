@@ -1,2 +1,2 @@
-# CreditScorePredictor
+# StreetCred
 Capital One Hackathon

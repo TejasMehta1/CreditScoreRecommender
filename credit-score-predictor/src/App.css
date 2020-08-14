@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@900&family=Gochi+Hand&family=Sniglet&display=swap');
+
 .App {
   text-align: center;
+}
+
+body{
+  font-family: 'Nunito', sans-serif;
 }
 
 .App-logo {
@@ -8,9 +15,62 @@
 }
 
 .navBar{
-  background-color: darkblue;
+  background-color: #F2335C;
   color: white;
   display: flex;
+  flex-direction: row;
+}
+
+.why-care-wrapper{
+  border-style: solid;
+  border-radius: 10px;
+  position: absolute;
+  right: 10px;
+  padding: 10px;
+  transition: ease-in-out .5s;
+  -webkit-animation: ease-in-out .5s;
+}
+.why-care-wrapper:hover{
+  filter: invert();
+  transform: scale(1.1);
+  transition: ease-in-out .5s;
+  -webkit-animation: ease-in-out .5s;
+  justify-content: center;
+}
+
+.navBar-logo-wrapper {
+  margin: 2vh 1vw;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  font-size: 5vh;
+}
+
+.why-should-i-care{
+  display: flex;
+  flex-direction: row;
+  font-size: 2.8vh;
+
+}
+
+.street-logo {
+  font-family: 'Gochi Hand', serif;
+  font-weight: 100;
+}
+
+.cred-logo {
+  font-family: 'Sniglet', sans-serif;
+  font-weight: 900;
+}
+
+navBar-why-wrapper {
+  position: absolute;
+
+}
+
+.why-should-i-care {
 }
 
 .pages{
@@ -37,6 +97,22 @@
   margin-right: auto;
 }
 
+.results{
+  width: fit-content;
+}
+
+.scoreResults{
+  font-size: 3em;
+}
+
+.emojiResults{
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 4em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .card{
   background-color: #fff;
   width: fit-content;
@@ -49,11 +125,14 @@
   color: #4a4a4a;
   display: block;
   padding: 0rem;
+}
 
+
+.hovercard{
   transition: 0.5s ease;
 }
 
-.card:hover {
+.hovercard:hover {
   transform: scale(1.04);
 }
 
@@ -96,9 +175,8 @@
   outline: none;
 }
 
-.pieChart {
-  height: 125px;;
-  width: 125px;
+.paymentHistory {
+  height: 175px;;
   right: 30px;
   top: 30px;
   position: absolute;

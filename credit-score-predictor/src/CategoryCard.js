@@ -4,7 +4,7 @@ import { Columns, Container } from 'react-bulma-components'
 
 const CategoryCard = (props) => {
   return (
-    <div onClick = {() => {props.activateModal()}} className="card">
+    <div onClick = {() => {props.activateModal()}} className={"card hovercard"}>
       <div className="cardElements">
       
         <div className="category">
