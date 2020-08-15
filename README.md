@@ -1,6 +1,6 @@
 <p align = "center">
   <h1 align = "center"><b>Capital One Summit Hackathon August 2020</b></h1><br><br>
-  <img align = "center" src = "https://github.com/Amgg12301/CreditScoreRecommender/blob/master/streetCredLogo.png"><br>
+  <img src = "https://github.com/Amgg12301/CreditScoreRecommender/blob/master/streetCredLogo.png" align = "center"><br>
   <h2 align = "center"><b>StreetCred (3rd Place Winner!)</b></h2>
   <h3 align = "center">A ReactJS, AWS Lambda, API Gateway, and Firebase-Hosted web application providing you with your credit score and providing insights on how to improve your score ASAP. This is aimed at the young adult audience (ages 18-26) and an attempt at changing banking for good for that audience specifically.
   <br><br>
